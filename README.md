@@ -16,7 +16,7 @@
 ## Install
 
 ```bash
-npm install @dico/cli
+npm install --global @dico/cli
 ```
 
 ## Usage
