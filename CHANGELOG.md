@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/dico-app/dico-cli/compare/v0.0.2...v0.0.3) (2021-05-27)
+
+
+### Features
+
+* use endpoint from .dicorc or fallback to production ([ce4a6ec](https://github.com/dico-app/dico-cli/commit/ce4a6ece0a5c4dab93dace88a1fc21b25b1714a0))
+
+
+### Documentation
+
+* update install process ([d6be728](https://github.com/dico-app/dico-cli/commit/d6be72875d92b13e7c3b3772297e95df6a3cb956))
+
+
+### Refactor
+
+* make const top level ([d734832](https://github.com/dico-app/dico-cli/commit/d7348322824b830040019bd7cce886ffaae0bfbd))
+* refactor help message ([82dee62](https://github.com/dico-app/dico-cli/commit/82dee625b5d665dc71e95a8c22ab8ad28bed08e2))
+
 ### 0.0.2 (2021-05-27)
 
 
