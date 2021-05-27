@@ -45,7 +45,13 @@ export const isSignedIn = async (): Promise<boolean> => {
 	try {
 		await client.whoami(config.user.token);
 	} catch (error) {
-		throw error;
+		if (error.status === 401) {
+			signout();
+
+			return false;
+		} else {
+			throw error;
+		}
 	}
 
 	return true;
