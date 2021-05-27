@@ -1,9 +1,9 @@
 import { CAC } from "cac";
 import { logger } from "../lib";
-import * as dicorc from "../core/dicorc";
+import * as user from "../core/user";
 
 export const signout = (_: CAC, __: { [key: string]: never }): void => {
-	dicorc.signout();
+	user.signout();
 	console.log("");
 	logger.success("Logged out\n");
 };

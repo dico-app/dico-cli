@@ -1,6 +1,6 @@
 import _fetch from "node-fetch";
-import { API_ENDPOINT } from "../lib";
-import { Config } from "./dicorc";
+import { API_ENDPOINT } from "../const";
+import * as dicorc from "./dicorc";
 
 export const fetch = async <R>(
 	endpoint: string,
@@ -19,10 +19,13 @@ export const fetch = async <R>(
 		});
 	}
 
-	const response = await _fetch(`${API_ENDPOINT}${endpoint}`, {
-		...options,
-		headers
-	});
+	const response = await _fetch(
+		`${dicorc.read().endpoint || API_ENDPOINT}${endpoint}`,
+		{
+			...options,
+			headers
+		}
+	);
 
 	const json = await response.json();
 
@@ -35,10 +38,10 @@ export const fetch = async <R>(
 
 export const whoami = async (
 	token: string
-): Promise<Required<Config>["user"]> => {
+): Promise<Required<dicorc.Config>["user"]> => {
 	const {
 		data: { fullname, email }
-	} = await fetch<Required<Config>["user"]>("/whoami", token);
+	} = await fetch<Required<dicorc.Config>["user"]>("/whoami", token);
 
 	return {
 		token,
