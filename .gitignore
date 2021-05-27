@@ -1,0 +1,37 @@
+# custom
+bin
+
+# os
+.DS_Store
+._*
+
+# node
+logs
+*.log
+node_modules
+
+# yarn
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.yarn-integrity
+
+# npm
+npm-debug.log*
+package-lock.json
+
+# tests
+.nyc_output
+coverage
+.eslintcache
+
+# .env
+.env
+.env.test
+.env*.local
+
+# vscode
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
