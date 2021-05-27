@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { PACKAGE, VERSION } from "../lib";
+import { PACKAGE, VERSION } from "../const";
 
 interface HelpSection {
 	title?: string;

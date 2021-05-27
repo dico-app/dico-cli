@@ -4,7 +4,8 @@ import latestVersion from "latest-version";
 import semver from "semver";
 
 import * as commands from "./commands";
-import { logger, NAME, PACKAGE, ucFirst, VERSION } from "./lib";
+import { NAME, PACKAGE, VERSION } from "./const";
+import { logger, ucFirst } from "./lib";
 
 const cli = cac(NAME);
 

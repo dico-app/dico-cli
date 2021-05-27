@@ -1,6 +1,7 @@
 import { CAC } from "cac";
 import exit from "exit";
-import { logger, NAME } from "../lib";
+import { NAME } from "../const";
+import { logger } from "../lib";
 
 export const _default = (cli: CAC, _: { [key: string]: never }): void => {
 	const command = cli.args.join(" ");
