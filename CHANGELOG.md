@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/dico-app/dico-cli/compare/v0.0.3...v0.0.4) (2021-06-01)
+
+
+### Features
+
+* add `dico init` command ([6a61930](https://github.com/dico-app/dico-cli/commit/6a61930da35beb0bba9d3e8d43c557234d8b13d8))
+
+
+### Bug Fixes
+
+* don't throw on 401 ([e9d989a](https://github.com/dico-app/dico-cli/commit/e9d989a924af3890f7cd2d2d441d44ba458453b8))
+
 ### [0.0.3](https://github.com/dico-app/dico-cli/compare/v0.0.2...v0.0.3) (2021-05-27)
 
 
