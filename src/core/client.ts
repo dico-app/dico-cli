@@ -1,12 +1,24 @@
 import _fetch from "node-fetch";
 import { API_ENDPOINT } from "../const";
 import * as dicorc from "./dicorc";
+import * as messages from "../messages";
+import { ConfigRC, Dico, Structure } from "../types";
 
-export const fetch = async <R>(
+class ClientError extends Error {}
+
+export const fetch = async <R = { [key: string]: unknown }>(
 	endpoint: string,
-	token: string,
+	token?: string,
 	options?: { [key: string]: unknown }
 ): Promise<{ status: number; msg: string; data: R }> => {
+	if (!token) {
+		token = dicorc.read().user?.token;
+
+		if (!token) {
+			throw new ClientError(messages.NotSignedIn);
+		}
+	}
+
 	const headers: { [key: string]: string } = {
 		authorization: `Bearer ${token}`
 	};
@@ -36,16 +48,42 @@ export const fetch = async <R>(
 	return json;
 };
 
-export const whoami = async (
-	token: string
-): Promise<Required<dicorc.Config>["user"]> => {
-	const {
-		data: { fullname, email }
-	} = await fetch<Required<dicorc.Config>["user"]>("/whoami", token);
+export const user = {
+	whoami: {
+		run: async (token: string): Promise<Required<ConfigRC>["user"]> => {
+			const {
+				data: { fullname, email }
+			} = await fetch<Required<ConfigRC>["user"]>("/whoami", token);
 
-	return {
-		token,
-		fullname,
-		email
-	};
+			return {
+				token,
+				fullname,
+				email
+			};
+		}
+	}
+};
+
+export const dico = {
+	select: {
+		all: {
+			run: async (token?: string): Promise<Dico[]> => {
+				const { data } = await fetch<Dico[]>("/dico", token);
+
+				return data;
+			}
+		}
+	}
+};
+
+export const structure = {
+	select: {
+		byDicoSlug: {
+			run: async (slug: string, token?: string): Promise<Structure> => {
+				const { data } = await fetch<Structure>(`/structure/${slug}`, token);
+
+				return data;
+			}
+		}
+	}
 };

@@ -7,7 +7,7 @@ import * as dicorc from "./dicorc";
 export const signin = async (
 	token: string
 ): Promise<Required<dicorc.Config>["user"]> => {
-	const user = await client.whoami(token);
+	const user = await client.user.whoami.run(token);
 
 	dicorc.update({ user });
 
@@ -43,7 +43,7 @@ export const isSignedIn = async (): Promise<boolean> => {
 	}
 
 	try {
-		await client.whoami(config.user.token);
+		await client.user.whoami.run(config.user.token);
 	} catch (error) {
 		if (error.status === 401) {
 			signout();

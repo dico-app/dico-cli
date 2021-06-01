@@ -6,6 +6,7 @@ import semver from "semver";
 import * as commands from "./commands";
 import { NAME, PACKAGE, VERSION } from "./const";
 import { logger, ucFirst } from "./lib";
+import * as middlewares from "./middlewares";
 
 const cli = cac(NAME);
 
@@ -23,6 +24,11 @@ cli.command("logout", "Log out of Dico.app").action(options => {
 
 cli.command("whoami", "Display current user").action(async options => {
 	await commands.whoami(cli, options);
+});
+
+cli.command("init", "Init a dico in your project").action(async options => {
+	await middlewares.signedInOnly();
+	await commands.init(cli, options);
 });
 
 cli.version(VERSION);

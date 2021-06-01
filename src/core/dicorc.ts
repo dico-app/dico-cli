@@ -1,32 +1,24 @@
 import * as rc from "rc9";
 import { RC_FILE } from "../const";
-
-export interface Config {
-	user?: {
-		token: string;
-		fullname: string;
-		email: string;
-	};
-	endpoint?: string;
-}
+import { ConfigRC } from "../types";
 
 /**
  * Read config file
  */
-export const read = (): Config => {
+export const read = (): ConfigRC => {
 	return rc.readUser(RC_FILE);
 };
 
 /**
  * Write config file
  */
-export const write = (config: Config): void => {
+export const write = (config: ConfigRC): void => {
 	rc.writeUser(config, RC_FILE);
 };
 
 /**
  * Update config file
  */
-export const update = (config: Config): void => {
+export const update = (config: ConfigRC): void => {
 	rc.updateUser(config, RC_FILE);
 };

@@ -1,7 +1,8 @@
 import { CAC } from "cac";
 import * as dicorc from "../core/dicorc";
 import * as user from "../core/user";
-import { logger } from "../lib";
+import { lineBreak, logger } from "../lib";
+import * as messages from "../messages";
 
 export const whoami = async (
 	_: CAC,
@@ -9,14 +10,16 @@ export const whoami = async (
 ): Promise<void> => {
 	if (await user.isSignedIn()) {
 		const { user: signedInUser } = dicorc.read();
-		console.log("");
+		lineBreak();
 		logger.info(
-			"Logged in as `%s <%s>`\n",
+			messages.SignedInAs,
 			signedInUser?.fullname,
 			signedInUser?.email
 		);
+		lineBreak();
 	} else {
-		console.log("");
-		logger.info("Not logged in! Log in with command `login <token>`\n");
+		lineBreak();
+		logger.info(`${messages.NotSignedIn}`);
+		lineBreak();
 	}
 };

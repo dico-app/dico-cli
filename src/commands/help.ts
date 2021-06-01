@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { PACKAGE, VERSION } from "../const";
+import * as dicorc from "../core/dicorc";
 
 interface HelpSection {
 	title?: string;
@@ -14,9 +15,14 @@ export const help = (sections: HelpSection[]): void => {
 	}\n`;
 
 	// Add header
+	const config = dicorc.read();
 	sections.unshift({
 		body: `\n📚 Dico CLI\n  ${chalk.cyanBright(
 			"Read the docs:"
-		)} https://docs.dico.app/cli`
+		)} https://docs.dico.app/cli${
+			config.endpoint
+				? `\n  ${chalk.cyan("Endpoint override:")} ${config.endpoint}`
+				: ""
+		}`
 	});
 };
