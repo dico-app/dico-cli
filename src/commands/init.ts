@@ -113,9 +113,9 @@ const initConfig = {
 
 export const init = async (
 	_: CAC,
-	__: { [key: string]: never }
+	options: { [key: string]: never }
 ): Promise<void> => {
-	if (dicojson.exists()) {
+	if (!options.force && dicojson.exists()) {
 		logger.error(messages.DicoJSONAlreadyExists, dicojson.getPath());
 		exit(1);
 	}

@@ -26,10 +26,13 @@ cli.command("whoami", "Display current user").action(async options => {
 	await commands.whoami(cli, options);
 });
 
-cli.command("init", "Init a dico in your project").action(async options => {
-	await middlewares.signedInOnly();
-	await commands.init(cli, options);
-});
+cli
+	.command("init", "Init a dico in your project")
+	.option("-f, --force", "Override existing `dico.config.json`")
+	.action(async options => {
+		await middlewares.signedInOnly();
+		await commands.init(cli, options);
+	});
 
 cli.version(VERSION);
 cli.help(commands.help);
