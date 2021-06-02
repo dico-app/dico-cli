@@ -34,6 +34,11 @@ cli
 		await commands.init(cli, options);
 	});
 
+cli.command("build", "Build current project dico").action(async options => {
+	await middlewares.signedInOnly();
+	await commands.build(cli, options);
+});
+
 cli.version(VERSION);
 cli.help(commands.help);
 

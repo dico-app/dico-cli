@@ -44,3 +44,69 @@ export const write = (config: ConfigJSON): void => {
 		"utf8"
 	);
 };
+
+// TODO: Better test this
+export const createSchema = (
+	keys: { path: string; key: string }[]
+): {
+	schema: ConfigJSON["schema"];
+	conflicts: { path: string; key: string }[][];
+} => {
+	const schema: ConfigJSON["schema"] = {};
+	const conflicts: { path: string; key: string }[][] = [];
+
+	const uniqueKeys = keys.filter((keyObj, i, keys) => {
+		return keys.findIndex(i => i.key === keyObj.key) === i;
+	});
+
+	keyloop: for (const keyObject of uniqueKeys) {
+		const parents = keyObject.key.replace(/^\$dico\./, "").split(".");
+		let pointer = schema;
+		const key = parents.pop() as string;
+
+		const traversedPath: string[] = [];
+		for (const parent of parents) {
+			traversedPath.push(parent);
+
+			if (!(parent in pointer)) {
+				pointer[parent] = {};
+			} else if (
+				// Conflict with a shorter key
+				typeof pointer[parent] === "string"
+			) {
+				const conflictPath = ["$dico", ...traversedPath].join(".");
+				const conflictKeyObj = uniqueKeys.find(i => i.key === conflictPath);
+				if (conflictKeyObj) {
+					const existing = conflicts.find(i => i[0].key === conflictKeyObj.key);
+					if (existing) {
+						existing.push(keyObject);
+					} else {
+						conflicts.push([conflictKeyObj, keyObject]);
+					}
+				} else {
+					conflicts.push([keyObject]);
+				}
+				continue keyloop;
+			} else if (
+				// Conflict with a longer key
+				traversedPath.length === parents.length &&
+				typeof pointer[parent] === "object" &&
+				typeof (pointer[parent] as ConfigJSON["schema"])[key] !== "undefined"
+			) {
+				const conflictKeyObj = uniqueKeys.filter(
+					i => i.key !== keyObject.key && i.key.startsWith(keyObject.key)
+				);
+				conflicts.push([keyObject, ...conflictKeyObj]);
+				continue keyloop;
+			}
+
+			pointer = pointer[parent] as ConfigJSON["schema"];
+		}
+
+		if (!(key in pointer)) {
+			pointer[key] = "";
+		}
+	}
+
+	return { schema, conflicts };
+};

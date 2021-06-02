@@ -97,7 +97,7 @@ const initConfig = {
 										observer.error(error);
 									}
 
-									task.title = "`dico.config.json` created!";
+									task.title = "`dico.config.json` created";
 									ctx.config = config;
 									observer.complete();
 								})
@@ -120,9 +120,14 @@ export const init = async (
 		exit(1);
 	}
 
-	lineBreak();
+	if (options.force) {
+		logger.warn(messages.CommandWithForce, "init");
+	} else {
+		lineBreak();
+	}
 	const { dicos } = await getDicos.run();
 	const { dico } = await pickDico.run(dicos);
 	await initConfig.run(dico);
+	logger.success(messages.CommandSuccessful, "init");
 	lineBreak();
 };

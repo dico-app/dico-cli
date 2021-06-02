@@ -44,6 +44,7 @@
     "debug": "4.3.1",
     "detect-indent": "6.1.0",
     "exit": "0.1.2",
+    "globby": "11.0.3",
     "inquirer": "8.1.0",
     "latest-version": "5.1.0",
     "listr": "0.14.3",

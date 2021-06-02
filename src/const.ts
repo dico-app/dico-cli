@@ -12,4 +12,5 @@ export const DEFAULT_SOURCES_PATTERN = [
 	"src/**/*.(ts|tsx)",
 	"src/**/*.vue"
 ];
+export const SOURCES_EXTRACT_REGEX = /\$dico(\.[\w\d]+)+/gm;
 export const DEFAULT_TIMEOUT = 1000;

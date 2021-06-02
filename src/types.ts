@@ -9,6 +9,7 @@ export interface ConfigRC {
 
 export interface ConfigJSON {
 	dico: string;
+	sources: string[];
 	schema: Structure["schema"];
 	updated_at: string;
 }
