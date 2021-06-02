@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/dico-app/dico-cli/compare/v0.0.4...v0.0.5) (2021-06-02)
+
+
+### Features
+
+* add dico build command ([d1d3c0d](https://github.com/dico-app/dico-cli/commit/d1d3c0d8ff3919bfe38aa102516584615cd0fe7c))
+* add force option for dico init ([540827b](https://github.com/dico-app/dico-cli/commit/540827b60b16e0bb28774e161b21c24967306718))
+* improve help message ([b8c3669](https://github.com/dico-app/dico-cli/commit/b8c36691b5ef36becf22be1810a99d636bb3e48d))
+
+
+### Documentation
+
+* add playground ([347f7c9](https://github.com/dico-app/dico-cli/commit/347f7c919e1227fa308b04eb960975ece3a34b29))
+* rename playground files to prevent conflicts ([a82bf08](https://github.com/dico-app/dico-cli/commit/a82bf08a01810d918c75f305dabe1673bcb039bb))
+* rename playground files to prevent conflicts ([32365e9](https://github.com/dico-app/dico-cli/commit/32365e9b74e3bbcb2bf4891d2dce43888f688329))
+* update readme ([b34f0f0](https://github.com/dico-app/dico-cli/commit/b34f0f08e1c1286be9fcef9ec03eb4481b4859e1))
+
 ### [0.0.4](https://github.com/dico-app/dico-cli/compare/v0.0.3...v0.0.4) (2021-06-01)
 
 
