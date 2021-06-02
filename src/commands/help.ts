@@ -19,9 +19,11 @@ export const help = (sections: HelpSection[]): void => {
 	sections.unshift({
 		body: `\n📚 Dico CLI\n  ${chalk.cyanBright(
 			"Read the docs:"
-		)} https://docs.dico.app/cli${
+		)} https://docs.dico.app/cli\n  ${chalk.cyan(
+			"Any questions, issues?"
+		)} https://github.com/dico-app/dico-cli/discussions${
 			config.endpoint
-				? `\n  ${chalk.cyan("Endpoint override:")} ${config.endpoint}`
+				? `\n  ${chalk.magentaBright("Endpoint override:")} ${config.endpoint}`
 				: ""
 		}`
 	});
