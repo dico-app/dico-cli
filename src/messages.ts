@@ -12,6 +12,9 @@ export const InvalidTokenFormat =
 export const NoDicoFoundDeveloper =
 	"No dico found where you at least have the `Developer` role";
 
+export const Unauthorized =
+	"You're no allowed to perform this action on the current dico, check with your admins";
+
 export const DicoJSONNotFound = `\`${JSON_FILE}\` not found at \`%s\``;
 export const DicoJSONAlreadyExists = `\`${JSON_FILE}\` already exists at \`%s\`!`;
 

@@ -7,6 +7,7 @@ import * as commands from "./commands";
 import { NAME, PACKAGE, VERSION } from "./const";
 import { logger, ucFirst } from "./lib";
 import * as middlewares from "./middlewares";
+import * as messages from "./messages";
 
 const cli = cac(NAME);
 
@@ -63,6 +64,8 @@ const run = async (): Promise<void> => {
 	} catch (error) {
 		if (error.message && typeof error.message === "string") {
 			logger.error(ucFirst(error.message));
+		} else if (error.status === 401) {
+			logger.error(messages.Unauthorized);
 		} else {
 			logger.fatal("");
 			console.log(error);
