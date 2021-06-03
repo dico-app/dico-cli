@@ -11,15 +11,15 @@ import * as project from "../core/project";
 import * as messages from "../messages";
 import exit from "exit";
 import { DEFAULT_TIMEOUT } from "../const";
-import { ConfigJSON } from "../types";
+import { ConfigJSON, ProjectKey } from "../types";
 
 class BuildError extends Error {}
 
 interface BuildDicoContext {
 	paths: string[];
-	keys: { path: string; key: string }[];
+	keys: ProjectKey[];
 	schema: ConfigJSON["schema"];
-	conflicts: { path: string; key: string }[][];
+	conflicts: ProjectKey[][];
 }
 
 const buildDico = new Listr(
@@ -62,12 +62,12 @@ const buildDico = new Listr(
 						const path = ctx.paths[i];
 
 						promises.push(
-							new Promise<{ path: string; key: string }[]>((res, rej) => {
+							new Promise<ProjectKey[]>((res, rej) => {
 								setTimeout(() => {
 									observer.next(`(${i + 1}/${ctx.paths.length}) ${path}`);
 									try {
 										const keys = project.crawlFile(path);
-										res(keys.map(key => ({ path, key })));
+										res(keys);
 									} catch (error) {
 										rej(error);
 									}
@@ -149,7 +149,8 @@ export const build = async (
 	lineBreak();
 
 	try {
-		await buildDico.run();
+		const { keys } = await buildDico.run();
+		console.log(keys);
 	} catch (error) {
 		// Handle conflicts error
 		if (error instanceof BuildError && error.message.includes("conflict")) {
@@ -165,17 +166,21 @@ export const build = async (
 				if (conflict.length === 1) {
 					console.log(
 						`  Key ${chalk.cyan(conflict[0].key)} (${chalk.cyan(
-							conflict[0].path
-						)}) is conflicting`
+							`${conflict[0].file}:${conflict[0].line}:${conflict[0].column}`
+						)}) is conflicting with at least another unknown declaration, this shouldn't happen`
 					);
 				} else {
 					console.log(
 						`  Key ${chalk.cyan(conflict[0].key)} (${chalk.cyan(
-							conflict[0].path
+							`${conflict[0].file}:${conflict[0].line}:${conflict[0].column}`
 						)}) is conflicting with key ${chalk.cyan(
 							conflict[1].key
-						)} (${chalk.cyan(conflict[1].path)})${
-							conflict.length > 2 ? ` and ${conflict.length - 2} more...` : ""
+						)} (${chalk.cyan(
+							`${conflict[1].file}:${conflict[1].line}:${conflict[1].column}`
+						)})${
+							conflict.length > 2
+								? ` and ${conflict.length - 2} more from that collection...`
+								: ""
 						}`
 					);
 				}

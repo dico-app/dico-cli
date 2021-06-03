@@ -34,3 +34,10 @@ export interface Structure {
 	schema: { [key: string]: unknown };
 	updated_at: string;
 }
+
+export interface ProjectKey {
+	key: string;
+	file: string;
+	line: number;
+	column: number;
+}

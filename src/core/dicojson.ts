@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { JSON_FILE } from "../const";
-import { ConfigJSON } from "../types";
+import { ConfigJSON, ProjectKey } from "../types";
 import * as messages from "../messages";
 import detectIndent from "detect-indent";
 
@@ -47,13 +47,13 @@ export const write = (config: ConfigJSON): void => {
 
 // TODO: Better test this
 export const createSchema = (
-	keys: { path: string; key: string }[]
+	keys: ProjectKey[]
 ): {
 	schema: ConfigJSON["schema"];
-	conflicts: { path: string; key: string }[][];
+	conflicts: ProjectKey[][];
 } => {
 	const schema: ConfigJSON["schema"] = {};
-	const conflicts: { path: string; key: string }[][] = [];
+	const conflicts: ProjectKey[][] = [];
 
 	const uniqueKeys = keys.filter((keyObj, i, keys) => {
 		return keys.findIndex(i => i.key === keyObj.key) === i;

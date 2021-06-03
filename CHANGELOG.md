@@ -15,7 +15,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Documentation
 
 * add playground ([347f7c9](https://github.com/dico-app/dico-cli/commit/347f7c919e1227fa308b04eb960975ece3a34b29))
-* rename playground files to prevent conflicts ([a82bf08](https://github.com/dico-app/dico-cli/commit/a82bf08a01810d918c75f305dabe1673bcb039bb))
 * rename playground files to prevent conflicts ([32365e9](https://github.com/dico-app/dico-cli/commit/32365e9b74e3bbcb2bf4891d2dce43888f688329))
 * update readme ([b34f0f0](https://github.com/dico-app/dico-cli/commit/b34f0f08e1c1286be9fcef9ec03eb4481b4859e1))
 
