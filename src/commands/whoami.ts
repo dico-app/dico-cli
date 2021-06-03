@@ -6,7 +6,7 @@ import * as messages from "../messages";
 
 export const whoami = async (
 	_: CAC,
-	__: { [key: string]: never }
+	__: { [key: string]: unknown }
 ): Promise<void> => {
 	if (await user.isSignedIn()) {
 		const { user: signedInUser } = dicorc.read();

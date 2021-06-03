@@ -2,7 +2,7 @@ import _fetch from "node-fetch";
 import { API_ENDPOINT } from "../const";
 import * as dicorc from "./dicorc";
 import * as messages from "../messages";
-import { ConfigRC, Dico, Structure } from "../types";
+import { ConfigJSON, ConfigRC, Dico, Structure } from "../types";
 
 class ClientError extends Error {}
 
@@ -23,12 +23,19 @@ export const fetch = async <R = { [key: string]: unknown }>(
 		authorization: `Bearer ${token}`
 	};
 
+	// Populate headers with headers from options
 	if (options && options.headers && typeof options.headers === "object") {
 		Object.entries(options.headers).map(([k, v]) => {
 			if (typeof v === "string") {
 				headers[k] = v;
 			}
 		});
+	}
+
+	// Ensure body is JSON
+	if (options && options.body) {
+		options.body = JSON.stringify(options.body);
+		headers["content-type"] = "application/json";
 	}
 
 	const response = await _fetch(
@@ -83,6 +90,24 @@ export const structure = {
 				const { data } = await fetch<Structure>(`/structure/${slug}`, token);
 
 				return data;
+			}
+		}
+	},
+	update: {
+		byDicoSlug: {
+			schema: {
+				run: async (
+					slug: string,
+					schema: ConfigJSON["schema"],
+					token?: string
+				): Promise<Structure> => {
+					const { data } = await fetch<Structure>(`/structure/${slug}`, token, {
+						method: "PUT",
+						body: { schema }
+					});
+
+					return data;
+				}
 			}
 		}
 	}

@@ -4,6 +4,7 @@ export * from "./whoami";
 
 export * from "./init";
 export * from "./build";
+export * from "./push";
 
 export * from "./help";
 export * from "./default";

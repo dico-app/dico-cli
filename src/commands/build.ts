@@ -143,7 +143,7 @@ const buildDico = new Listr(
 
 export const build = async (
 	_: CAC,
-	__: { [key: string]: never }
+	options: { [key: string]: unknown }
 ): Promise<void> => {
 	if (!dicojson.exists()) {
 		logger.error(messages.DicoJSONNotFound, dicojson.getPath());
