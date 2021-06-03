@@ -55,11 +55,7 @@ export const createSchema = (
 	const schema: ConfigJSON["schema"] = {};
 	const conflicts: ProjectKey[][] = [];
 
-	const uniqueKeys = keys.filter((keyObj, i, keys) => {
-		return keys.findIndex(i => i.key === keyObj.key) === i;
-	});
-
-	keyloop: for (const keyObject of uniqueKeys) {
+	keyloop: for (const keyObject of keys) {
 		const parents = keyObject.key.replace(/^\$dico\./, "").split(".");
 		let pointer = schema;
 		const key = parents.pop() as string;
@@ -75,7 +71,7 @@ export const createSchema = (
 				typeof pointer[parent] === "string"
 			) {
 				const conflictPath = ["$dico", ...traversedPath].join(".");
-				const conflictKeyObj = uniqueKeys.find(i => i.key === conflictPath);
+				const conflictKeyObj = keys.find(i => i.key === conflictPath);
 				if (conflictKeyObj) {
 					const existing = conflicts.find(i => i[0].key === conflictKeyObj.key);
 					if (existing) {
@@ -93,7 +89,7 @@ export const createSchema = (
 				typeof pointer[parent] === "object" &&
 				typeof (pointer[parent] as ConfigJSON["schema"])[key] !== "undefined"
 			) {
-				const conflictKeyObj = uniqueKeys.filter(
+				const conflictKeyObj = keys.filter(
 					i => i.key !== keyObject.key && i.key.startsWith(keyObject.key)
 				);
 				conflicts.push([keyObject, ...conflictKeyObj]);

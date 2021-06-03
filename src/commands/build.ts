@@ -80,13 +80,17 @@ const buildDico = new Listr(
 						.then(keys => {
 							const flatKeys = keys.flat();
 
-							if (flatKeys.length === 1) {
+							const uniqueKeys = flatKeys.filter((keyObj, i, flatKeys) => {
+								return flatKeys.findIndex(i => i.key === keyObj.key) === i;
+							});
+
+							if (uniqueKeys.length === 1) {
 								task.title = "One key found";
 							} else {
-								task.title = `${flatKeys.length} keys found`;
+								task.title = `${uniqueKeys.length} keys found`;
 							}
 
-							ctx.keys = flatKeys;
+							ctx.keys = uniqueKeys;
 							observer.complete();
 						})
 						.catch(error => {
@@ -149,8 +153,7 @@ export const build = async (
 	lineBreak();
 
 	try {
-		const { keys } = await buildDico.run();
-		console.log(keys);
+		await buildDico.run();
 	} catch (error) {
 		// Handle conflicts error
 		if (error instanceof BuildError && error.message.includes("conflict")) {
