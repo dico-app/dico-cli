@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/dico-app/dico-cli/compare/v0.0.5...v0.0.6) (2021-06-03)
+
+
+### Features
+
+* add dico push command ([3b2d94f](https://github.com/dico-app/dico-cli/commit/3b2d94f5378f21474d5c82a5db515cb8329e74e7))
+* handle correctly unauthorized actions ([002e488](https://github.com/dico-app/dico-cli/commit/002e4889d1d37f5c95657f5f5e4978a5147fab49))
+* provide line and column information when crawling files ([8e9d00a](https://github.com/dico-app/dico-cli/commit/8e9d00a58bbc6fa38af50ccf2f6a5603a13979c3))
+
+
+### Refactor
+
+* extract ProjectKey into proper interface ([9e4d278](https://github.com/dico-app/dico-cli/commit/9e4d278fead46f76f028845f96f0a0534726ec7a))
+* move unique key function to listr tasks ([b67a43f](https://github.com/dico-app/dico-cli/commit/b67a43fe1b77e42d0ffd653078ed8bcd76b3dd99))
+
+
+### Chore
+
+* **config:** update commitlint ([2d17f51](https://github.com/dico-app/dico-cli/commit/2d17f5167a9513de8eb3c605137dc3839a8e9fb2))
+* **deps:** cleanup dependencies ([34bd956](https://github.com/dico-app/dico-cli/commit/34bd95684314d2374263e5843e4677713815bbbe))
+* **deps:** maintain dependencies ([d598abb](https://github.com/dico-app/dico-cli/commit/d598abbef42bf0bfaa55e32c446aca4c78aa03ac))
+
 ### [0.0.5](https://github.com/dico-app/dico-cli/compare/v0.0.4...v0.0.5) (2021-06-02)
 
 
