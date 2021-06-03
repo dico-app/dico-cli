@@ -31,7 +31,6 @@ cli
 	.command("init", "Init a dico in your project")
 	.option("-f, --force", "Override existing `dico.config.json`")
 	.action(async options => {
-		// TODO: Check role? / handle 401
 		await middlewares.signedInOnly();
 		await commands.init(cli, options);
 	});
@@ -49,7 +48,6 @@ cli
 	)
 	.option("-f, --force", "Force push, even if not in sync (not recommended)")
 	.action(async options => {
-		// TODO: Check role? / handle 401
 		await middlewares.signedInOnly();
 		await commands.push(cli, options);
 	});
