@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import { CAC } from "cac";
 // @ts-expect-error it's our fork and we don't care
 import UpdateRenderer from "@lihbr/listr-update-renderer";
@@ -11,7 +10,7 @@ import * as client from "../core/client";
 import * as messages from "../messages";
 import exit from "exit";
 import { DEFAULT_TIMEOUT, JSON_FILE } from "../const";
-import { ConfigJSON, ProjectKey } from "../types";
+import { ConfigJSON } from "../types";
 import { build } from "./build";
 
 class PushError extends Error {}
