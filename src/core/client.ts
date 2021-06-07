@@ -60,7 +60,7 @@ export const user = {
 		run: async (token: string): Promise<Required<ConfigRC>["user"]> => {
 			const {
 				data: { fullname, email }
-			} = await fetch<Required<ConfigRC>["user"]>("/whoami", token);
+			} = await fetch<Required<ConfigRC>["user"]>("/cli/whoami", token);
 
 			return {
 				token,
@@ -75,7 +75,7 @@ export const dico = {
 	select: {
 		all: {
 			run: async (token?: string): Promise<Dico[]> => {
-				const { data } = await fetch<Dico[]>("/dico", token);
+				const { data } = await fetch<Dico[]>("/cli/dico", token);
 
 				return data;
 			}
@@ -87,7 +87,10 @@ export const structure = {
 	select: {
 		byDicoSlug: {
 			run: async (slug: string, token?: string): Promise<Structure> => {
-				const { data } = await fetch<Structure>(`/structure/${slug}`, token);
+				const { data } = await fetch<Structure>(
+					`/cli/structure/${slug}`,
+					token
+				);
 
 				return data;
 			}
@@ -101,10 +104,14 @@ export const structure = {
 					schema: ConfigJSON["schema"],
 					token?: string
 				): Promise<Structure> => {
-					const { data } = await fetch<Structure>(`/structure/${slug}`, token, {
-						method: "PUT",
-						body: { schema }
-					});
+					const { data } = await fetch<Structure>(
+						`/cli/structure/${slug}`,
+						token,
+						{
+							method: "PUT",
+							body: { schema }
+						}
+					);
 
 					return data;
 				}
