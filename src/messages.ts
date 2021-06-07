@@ -26,3 +26,6 @@ export const CommandWithFlagCommand = `Running \`${NAME} %s\` with \`%s\` flag, 
 export const NowStartingCommand = `Now starting command \`${NAME} %s\`:`;
 
 export const ProductionDicoNotInSync = `Production dico is not in sync with local \`${CONFIG_FILE}\``;
+
+export const IsDicoClientInstalled =
+	"Are you sure `@dico/client` is installed in your project?";

@@ -52,6 +52,15 @@ cli
 		await commands.push(cli, options);
 	});
 
+cli
+	.command(
+		"fetch [base]",
+		"Fetch current dico from Dico.app using `@dico/client`"
+	)
+	.action(async options => {
+		await commands.fetch(cli, options);
+	});
+
 cli.version(VERSION);
 cli.help(commands.help);
 
