@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/dico-app/dico-cli/compare/v0.0.6...v0.0.7) (2021-06-07)
+
+
+### Features
+
+* add dico fetch command ([0fcabd1](https://github.com/dico-app/dico-cli/commit/0fcabd1337d1fbec68ae01838704bb23eeb2e5c3))
+
+
+### Refactor
+
+* make endpoint not default to /api ([8149c0f](https://github.com/dico-app/dico-cli/commit/8149c0f3b822e82ab3269d338d8d1e7fa1a3b56d))
+
 ### [0.0.6](https://github.com/dico-app/dico-cli/compare/v0.0.5...v0.0.6) (2021-06-03)
 
 
