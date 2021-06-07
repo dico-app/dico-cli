@@ -9,7 +9,7 @@ import * as dicojson from "../core/dicojson";
 import * as client from "../core/client";
 import * as messages from "../messages";
 import exit from "exit";
-import { DEFAULT_TIMEOUT, JSON_FILE } from "../const";
+import { DEFAULT_TIMEOUT, CONFIG_FILE } from "../const";
 import { ConfigJSON } from "../types";
 import { build } from "./build";
 
@@ -42,7 +42,7 @@ const pushDico = new Listr(
 								}
 							}
 
-							task.title = `Production dico is in sync with local \`${JSON_FILE}\``;
+							task.title = `Production dico is in sync with local \`${CONFIG_FILE}\``;
 
 							observer.complete();
 						})
@@ -114,7 +114,7 @@ export const push = async (
 			logger.error(`${error.message}:`);
 
 			logger.info(
-				`Sync errors happen when your \`${JSON_FILE}\` file is older than the one available on Dico.app\n  Try merging your branch with the most up-to-date one on git before trying again\n  Alternatively you can use the \`force\` flag to bypass sync errors (not recommended)`
+				`Sync errors happen when your \`${CONFIG_FILE}\` file is older than the one available on Dico.app\n  Try merging your branch with the most up-to-date one on git before trying again\n  Alternatively you can use the \`force\` flag to bypass sync errors (not recommended)`
 			);
 			lineBreak();
 

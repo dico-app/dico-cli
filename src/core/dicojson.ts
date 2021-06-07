@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { JSON_FILE } from "../const";
+import { CONFIG_FILE } from "../const";
 import { ConfigJSON, ProjectKey } from "../types";
 import * as messages from "../messages";
 import detectIndent from "detect-indent";
@@ -11,7 +11,7 @@ class DicoJSONError extends Error {}
  * Get config path
  */
 export const getPath = (): string => {
-	return path.join(process.cwd(), JSON_FILE);
+	return path.join(process.cwd(), CONFIG_FILE);
 };
 
 export const exists = (): boolean => {
