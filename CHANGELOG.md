@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/dico-app/dico-cli/compare/v0.0.7...v0.0.8) (2021-06-09)
+
+
+### Chore
+
+* **deps:** maintain dependencies ([883ec6d](https://github.com/dico-app/dico-cli/commit/883ec6dcf19f4a69cf3dd4fda718e68b7c44240e))
+
+
+### Documentation
+
+* update link to docs ([d1667d0](https://github.com/dico-app/dico-cli/commit/d1667d0d36573edde38be9462d91af34ef270b97))
+
 ### [0.0.7](https://github.com/dico-app/dico-cli/compare/v0.0.6...v0.0.7) (2021-06-07)
 
 
