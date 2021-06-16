@@ -6,7 +6,7 @@ import * as messages from "../messages";
 
 export const fetch = async (_: CAC, base = "./"): Promise<void> => {
 	try {
-		execa.sync("dico-fetch", [base], {
+		execa.sync("node_modules/.bin/dico-fetch", [base], {
 			stdin: process.stdin,
 			stdout: process.stdout,
 			stderr: process.stderr
