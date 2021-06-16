@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/dico-app/dico-cli/compare/v0.0.9...v0.0.10) (2021-06-16)
+
+
+### Bug Fixes
+
+* macos compatible dico fetch command ([9e5b430](https://github.com/dico-app/dico-cli/commit/9e5b43068fdb0ac06e6dcb38a3cde0a227550329))
+
 ### [0.0.9](https://github.com/dico-app/dico-cli/compare/v0.0.8...v0.0.9) (2021-06-16)
 
 
