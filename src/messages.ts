@@ -1,4 +1,4 @@
-import { CONFIG_FILE, NAME } from "./const";
+import { CLIENT_PKG, CONFIG_FILE, NAME } from "./const";
 
 export const InvalidCommand = `Invalid command: \`%s\`, run \`${NAME} --help\` for all commands`;
 
@@ -29,3 +29,15 @@ export const ProductionDicoNotInSync = `Production dico is not in sync with loca
 
 export const IsDicoClientInstalled =
 	"Are you sure `@dico/client` is installed in your project?";
+
+export const FrameworkDetected = `We detected that you are running \`%s\``;
+
+export const ClientAlreadyInstalledSkip = `\`${CLIENT_PKG}\` is already installed, skipping install step...`;
+
+export const PkgJSONNotDetected = `We couldn't detect your \`package.json\`, you'll have to install \`${CLIENT_PKG}\` manually`;
+
+export const NoAutomaticClientInstall = `Alright, we won't install \`${CLIENT_PKG}\` for you, you'll have to install it manually`;
+
+export const InstallClientManually = `To install \`${CLIENT_PKG}\` manually check out the dedicated documentation page: https://docs.dico.app/installing-the-client`;
+
+export const AutomaticClientInstallSuccess = `\`${CLIENT_PKG}\` install successful!`;

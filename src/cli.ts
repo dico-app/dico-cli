@@ -4,10 +4,11 @@ import latestVersion from "latest-version";
 import semver from "semver";
 
 import * as commands from "./commands";
-import { NAME, PACKAGE, VERSION } from "./const";
+import { CLIENT_PKG, CONFIG_FILE, NAME, PACKAGE, VERSION } from "./const";
 import { logger, ucFirst } from "./lib";
 import * as middlewares from "./middlewares";
 import * as messages from "./messages";
+import chalk from "chalk";
 
 const cli = cac(NAME);
 
@@ -29,7 +30,7 @@ cli.command("whoami", "Display current user").action(async options => {
 
 cli
 	.command("init", "Init a dico in your project")
-	.option("-f, --force", "Override existing `dico.config.json`")
+	.option("-f, --force", `Override existing ${chalk.cyan(CONFIG_FILE)}`)
 	.action(async options => {
 		await middlewares.signedInOnly();
 		await commands.init(cli, options);
@@ -44,7 +45,9 @@ cli
 	.command("push", "Push current dico to Dico.app")
 	.option(
 		"-b, --build",
-		"Also build current project dico (performs `dico build` before pushing)"
+		`Also build current project dico (performs ${chalk.cyan(
+			"dico build"
+		)} before pushing)`
 	)
 	.option("-f, --force", "Force push, even if not in sync (not recommended)")
 	.action(async options => {
@@ -55,7 +58,7 @@ cli
 cli
 	.command(
 		"fetch [base]",
-		"Fetch current dico from Dico.app using `@dico/client`"
+		`Fetch current dico from Dico.app using ${chalk.cyan(CLIENT_PKG)}`
 	)
 	.action(async options => {
 		await commands.fetch(cli, options);

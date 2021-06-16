@@ -12,6 +12,7 @@ import exit from "exit";
 import { DEFAULT_TIMEOUT, CONFIG_FILE } from "../const";
 import { ConfigJSON } from "../types";
 import { build } from "./build";
+import chalk from "chalk";
 
 class PushError extends Error {}
 
@@ -42,7 +43,9 @@ const pushDico = new Listr(
 								}
 							}
 
-							task.title = `Production dico is in sync with local \`${CONFIG_FILE}\``;
+							task.title = `Production dico is in sync with local ${chalk.cyan(
+								CONFIG_FILE
+							)}`;
 
 							observer.complete();
 						})

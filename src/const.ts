@@ -14,3 +14,5 @@ export const DEFAULT_SOURCES_PATTERN = [
 ];
 export const SOURCES_EXTRACT_REGEX = /\$dico(\.[\w\d]+)+/gm;
 export const DEFAULT_TIMEOUT = 1000;
+export const CLIENT_PKG = "@dico/client";
+export const CLIENT_FETCH = "dico-fetch";

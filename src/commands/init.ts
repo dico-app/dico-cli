@@ -8,10 +8,17 @@ import inquirer from "inquirer";
 import { lineBreak, logger } from "../lib";
 import * as client from "../core/client";
 import * as dicojson from "../core/dicojson";
+import * as pkgjson from "../core/pkgjson";
 import { Dico, Role } from "../types";
 import * as messages from "../messages";
-import { DEFAULT_SOURCES_PATTERN, DEFAULT_TIMEOUT } from "../const";
+import {
+	CLIENT_PKG,
+	CONFIG_FILE,
+	DEFAULT_SOURCES_PATTERN,
+	DEFAULT_TIMEOUT
+} from "../const";
 import exit from "exit";
+import chalk from "chalk";
 
 class InitError extends Error {}
 
@@ -75,7 +82,7 @@ const initConfig = {
 		await new Listr(
 			[
 				{
-					title: "Creating `dico.config.json`...",
+					title: `Creating ${chalk.cyan(CONFIG_FILE)}...`,
 					// @ts-expect-error listr types are broken
 					task: (ctx: { config: ConfigJSON }, task: ListrTaskWrapper) =>
 						new Observable(observer => {
@@ -97,7 +104,7 @@ const initConfig = {
 										observer.error(error);
 									}
 
-									task.title = "`dico.config.json` created";
+									task.title = `${chalk.cyan(CONFIG_FILE)} created`;
 									ctx.config = config;
 									observer.complete();
 								})
@@ -109,6 +116,90 @@ const initConfig = {
 			],
 			{ renderer: UpdateRenderer }
 		).run()
+};
+
+const askInstallClient = {
+	run: async () =>
+		await inquirer.prompt<{ yes: boolean }>([
+			{
+				type: "confirm",
+				name: "yes",
+				message: `Would you like us to install and configure ${chalk.cyan(
+					CLIENT_PKG
+				)} (our client library) for you?\n  This will edit your ${chalk.cyan(
+					"package.json"
+				)} file and create the client for you`
+			}
+		])
+};
+
+const installClient = {
+	run: async (manifest: pkgjson.Manifest) =>
+		await new Listr(
+			[
+				{
+					title: `Installing ${chalk.cyan(CLIENT_PKG)} with ${chalk.cyan(
+						pkgjson.getPackageManager() === "npm" ? "npm" : "Yarn"
+					)}...`,
+					// @ts-expect-error listr types are broken
+					task: (_: pkgjson.Manifest, task: ListrTaskWrapper) =>
+						new Observable(observer => {
+							Promise.all([
+								pkgjson.installClient(),
+								new Promise(resolve => setTimeout(resolve, DEFAULT_TIMEOUT))
+							])
+								.then(([_, __]) => {
+									task.title = `${chalk.cyan(CLIENT_PKG)} installed`;
+									observer.complete();
+								})
+								.catch(error => {
+									observer.error(error);
+								});
+						})
+				},
+				{
+					title: `Updating ${chalk.cyan("package.json")} scripts...`,
+					// @ts-expect-error listr types are broken
+					task: (_: pkgjson.Manifest, task: ListrTaskWrapper) =>
+						new Observable(observer => {
+							Promise.all([
+								pkgjson.updateScripts(manifest),
+								new Promise(resolve => setTimeout(resolve, DEFAULT_TIMEOUT))
+							])
+								.then(([_, __]) => {
+									task.title = `${chalk.cyan("package.json")} scripts updated`;
+									observer.complete();
+								})
+								.catch(error => {
+									observer.error(error);
+								});
+						})
+				},
+				{
+					title: `Creating ${chalk.cyan(
+						`dico.${pkgjson.isTypeScript() ? "ts" : "js"}`
+					)}...`,
+					// @ts-expect-error listr types are broken
+					task: (_: pkgjson.Manifest, task: ListrTaskWrapper) =>
+						new Observable(observer => {
+							Promise.all([
+								pkgjson.createDicoFile(manifest),
+								new Promise(resolve => setTimeout(resolve, DEFAULT_TIMEOUT))
+							])
+								.then(([_, __]) => {
+									task.title = `${chalk.cyan(
+										`dico.${pkgjson.isTypeScript() ? "ts" : "js"}`
+									)} created`;
+									observer.complete();
+								})
+								.catch(error => {
+									observer.error(error);
+								});
+						})
+				}
+			],
+			{ renderer: UpdateRenderer }
+		).run(manifest)
 };
 
 export const init = async (
@@ -128,6 +219,31 @@ export const init = async (
 	const { dicos } = await getDicos.run();
 	const { dico } = await pickDico.run(dicos);
 	await initConfig.run(dico);
+	lineBreak();
+
+	// Try setup project if possible
+	if (pkgjson.exists()) {
+		if (!pkgjson.isInstalled()) {
+			const manifest = pkgjson.detectFramework();
+			logger.info(messages.FrameworkDetected, manifest.name);
+			const { yes } = await askInstallClient.run();
+			if (yes) {
+				await installClient.run(manifest);
+				logger.success(messages.AutomaticClientInstallSuccess);
+			} else {
+				logger.success(messages.NoAutomaticClientInstall);
+				logger.info(messages.InstallClientManually);
+			}
+		} else {
+			logger.info(messages.ClientAlreadyInstalledSkip);
+		}
+	} else {
+		logger.info(messages.PkgJSONNotDetected);
+		logger.info(messages.InstallClientManually);
+	}
+
+	lineBreak();
+
 	logger.success(messages.CommandSuccessful, "init");
 	lineBreak();
 };
