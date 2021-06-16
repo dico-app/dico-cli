@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/dico-app/dico-cli/compare/v0.0.8...v0.0.9) (2021-06-16)
+
+
+### Features
+
+* add optional automatic dico client install ([889853c](https://github.com/dico-app/dico-cli/commit/889853cbcbfcc12fa9270027333653251a7bd457))
+
+
+### Documentation
+
+* fix domain ([8978e82](https://github.com/dico-app/dico-cli/commit/8978e8266f7e6b69304c0cfd6aa832f56aa4c96e))
+
 ### [0.0.8](https://github.com/dico-app/dico-cli/compare/v0.0.7...v0.0.8) (2021-06-09)
 
 
