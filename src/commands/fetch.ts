@@ -4,9 +4,9 @@ import exit from "exit";
 import { logger } from "../lib";
 import * as messages from "../messages";
 
-export const fetch = async (_: CAC, base = "./"): Promise<void> => {
+export const fetch = async (_: CAC, options = ["./", "./"]): Promise<void> => {
 	try {
-		execa.sync("node_modules/.bin/dico-fetch", [base], {
+		execa.sync("node_modules/.bin/dico-fetch", options, {
 			stdin: process.stdin,
 			stdout: process.stdout,
 			stderr: process.stderr

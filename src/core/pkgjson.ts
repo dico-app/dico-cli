@@ -18,6 +18,7 @@ export interface Manifest {
 	name: string;
 	pkg: string;
 	scripts: string[];
+	command: string;
 	createDicoDir: string;
 	createDicoTemplate: string;
 }
@@ -27,6 +28,7 @@ const manifests: Record<string, Manifest> = {
 		name: "Nuxt",
 		pkg: "nuxt",
 		scripts: ["dev", "generate", "build"],
+		command: CLIENT_FETCH,
 		createDicoDir: "",
 		createDicoTemplate: VanillaEsmRoot
 	},
@@ -34,6 +36,7 @@ const manifests: Record<string, Manifest> = {
 		name: "Vite",
 		pkg: "vite",
 		scripts: ["dev", "build", "serve"],
+		command: CLIENT_FETCH,
 		createDicoDir: "src",
 		createDicoTemplate: Vite
 	},
@@ -41,6 +44,7 @@ const manifests: Record<string, Manifest> = {
 		name: "Next",
 		pkg: "next",
 		scripts: ["dev", "build"],
+		command: CLIENT_FETCH,
 		createDicoDir: "",
 		createDicoTemplate: VanillaEsmRoot
 	},
@@ -48,6 +52,7 @@ const manifests: Record<string, Manifest> = {
 		name: "Gatsby",
 		pkg: "gatsby",
 		scripts: ["build", "develop"],
+		command: CLIENT_FETCH,
 		createDicoDir: "src",
 		createDicoTemplate: VanillaEsm
 	},
@@ -55,13 +60,23 @@ const manifests: Record<string, Manifest> = {
 		name: "Craco",
 		pkg: "@craco/craco",
 		scripts: ["start", "build"],
+		command: `${CLIENT_FETCH} ./ ./src`,
 		createDicoDir: "src",
-		createDicoTemplate: VanillaEsm
+		createDicoTemplate: VanillaEsmRoot
+	},
+	cra: {
+		name: "Create React App",
+		pkg: "react-scripts",
+		scripts: ["start", "build"],
+		command: `${CLIENT_FETCH} ./ ./src`,
+		createDicoDir: "src",
+		createDicoTemplate: VanillaEsmRoot
 	},
 	vanilla: {
 		name: "Vanilla",
 		pkg: "any",
 		scripts: ["dev", "generate", "build"],
+		command: CLIENT_FETCH,
 		createDicoDir: "src",
 		createDicoTemplate: VanillaEsm
 	}
@@ -140,7 +155,7 @@ export const updateScripts = async (manifest: Manifest): Promise<void> => {
 				script in pkg.scripts &&
 				!pkg.scripts[script].includes(CLIENT_FETCH)
 			) {
-				pkg.scripts[script] = `${CLIENT_FETCH} && ${pkg.scripts[script]}`;
+				pkg.scripts[script] = `${manifest.command} && ${pkg.scripts[script]}`;
 			}
 		});
 	}

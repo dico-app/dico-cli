@@ -57,7 +57,7 @@ cli
 
 cli
 	.command(
-		"fetch [base]",
+		"fetch [...baseOrBaseAndPath]",
 		`Fetch current dico from Dico.app using ${chalk.cyan(CLIENT_PKG)}`
 	)
 	.action(async options => {
