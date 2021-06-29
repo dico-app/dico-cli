@@ -1,6 +1,6 @@
 {
   "name": "@dico/cli",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Dico.app Command Line Interface",
   "keywords": [
     "dico",
